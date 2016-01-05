@@ -6,6 +6,7 @@ const bot = new Slackbot({
   token: config.SLACK_BOT_TOKEN,
   name: 'Fitbot'
 })
+const channel = config.CHANNEL
 
 // more information about additional params https://api.slack.com/methods/chat.postMessage
 const params = {
@@ -20,14 +21,14 @@ bot.on('message', (data) => {
       fitbit.getStep().then((step) => {
         text = `今日はこれまでに${step}歩歩いた`
         console.log(text)
-        bot.postMessageToChannel('pastak-kanshi', text, params)
+        bot.postMessageToChannel(channel, text, params)
       })
       break
     case '距離':
       fitbit.getDistance().then((d) => {
         text = `今日はこれまでに${d}km移動した`
         console.log(text)
-        bot.postMessageToChannel('pastak-kanshi', text, params)
+        bot.postMessageToChannel(channel, text, params)
       })
       break
     case '心拍数':
@@ -36,7 +37,7 @@ bot.on('message', (data) => {
       fitbit.getHeartRate().then((r) => {
         text = `:heartbeat: 現在の心拍数: ${r}`
         console.log(text)
-        bot.postMessageToChannel('pastak-kanshi', text, params)
+        bot.postMessageToChannel(channel, text, params)
       })
   }
 

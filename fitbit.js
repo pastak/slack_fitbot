@@ -59,11 +59,6 @@ const getHeartRate = () => {
         require('fs').writeFile('./config.js', _config)
         const dataset = res['activities-heart-intraday'].dataset
         resolve(dataset[dataset.length - 1].value)
-        const metrics = dataset.map((item) => {return {
-          name: 'heartbeat',
-          time: Date.parse(`${today} ${item.time}`)/1000,
-          value: item.value
-        }})
       })
     })
   })
