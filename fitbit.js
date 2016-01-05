@@ -43,20 +43,29 @@ const getDistance = () => {
 
 const getHeartRate = () => {
   return new Promise((resolve) => {
-    client.getTimeSeries(newToken, {resourcePath: 'activities/heart', period: '1d/1sec'}).then((res) => {
-    const _config = `module.exports = ${JSON.stringify(Object.assign(config, {
-      ACCESS_TOKEN: newToken.token.access_token,
-      REFRESH_TOKEN: newToken.token.refresh_token,
-      EXPIRES_AT: newToken.token.expires_at
-    }))}`
-    require('fs').writeFile('./config.js', _config)
-    const dataset = res['activities-heart-intraday'].dataset
-    resolve(dataset[dataset.length - 1].value)
-    const metrics = dataset.map((item) => {return {
-      name: 'heartbeat',
-      time: Date.parse(`${today} ${item.time}`)/1000,
-      value: item.value
-    }})
-  }
+    client.refreshAccessToken(token).then((newToken) => {
+      const _config = `module.exports = ${JSON.stringify(Object.assign(config, {
+        ACCESS_TOKEN: newToken.token.access_token,
+        REFRESH_TOKEN: newToken.token.refresh_token,
+        EXPIRES_AT: newToken.token.expires_at
+      }))}`
+      require('fs').writeFile('./config.js', _config)
+      client.getTimeSeries(newToken, {resourcePath: 'activities/heart', period: '1d/1sec'}).then((res) => {
+        const _config = `module.exports = ${JSON.stringify(Object.assign(config, {
+          ACCESS_TOKEN: newToken.token.access_token,
+          REFRESH_TOKEN: newToken.token.refresh_token,
+          EXPIRES_AT: newToken.token.expires_at
+        }))}`
+        require('fs').writeFile('./config.js', _config)
+        const dataset = res['activities-heart-intraday'].dataset
+        resolve(dataset[dataset.length - 1].value)
+        const metrics = dataset.map((item) => {return {
+          name: 'heartbeat',
+          time: Date.parse(`${today} ${item.time}`)/1000,
+          value: item.value
+        }})
+      })
+    })
+  })
 }
 module.exports = {getStep, getDistance, getHeartRate}
