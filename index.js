@@ -37,7 +37,7 @@ bot.on('message', (data) => {
     case ':heart:':
     case ':heartbeat:':
       fitbit.getHeartRate().then((r) => {
-        text = `:heartbeat: 現在の心拍数: ${r}`
+        text = `:heartbeat: 現在の心拍数: ${r} \n Listen Beat: https://heartbeatwonderland.herokuapp.com/bpm/${r}`
         console.log(text)
         bot.postMessageToChannel(channel, text, params)
       })
