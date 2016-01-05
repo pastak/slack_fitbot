@@ -7,6 +7,7 @@ const bot = new Slackbot({
   name: 'Fitbot'
 })
 const channel = config.CHANNEL
+const channelId = config.CHANNELID
 
 // more information about additional params https://api.slack.com/methods/chat.postMessage
 const params = {
@@ -14,7 +15,8 @@ const params = {
 }
 
 bot.on('message', (data) => {
-  if (!(data.type === 'message' && data.channel === 'C0CND2YDD')) return
+  if (data.type !== 'message') return
+  if (channelId && data.channel !== channelId ) return
   let text = ''
   switch (data.text) {
     case '歩数':
