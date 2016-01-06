@@ -41,6 +41,7 @@ bot.on('message', (data) => {
         console.log(text)
         bot.postMessageToChannel(channel, text, params)
       })
+      break
     case '起きてる?':
     case '起きてる？':
     case '寝てる？':
