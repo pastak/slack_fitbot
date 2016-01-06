@@ -43,6 +43,8 @@ bot.on('message', (data) => {
       })
     case '起きてる?':
     case '起きてる？':
+    case '寝てる？':
+    case '寝てる?':
       fitbit.getLastSleepingTime().then((s) => {
         text = `:zzz: 最新の睡眠情報: ${s.dateTime}まで寝ていたようです`
         console.log(text)
