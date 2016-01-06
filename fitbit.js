@@ -51,12 +51,6 @@ const getHeartRate = () => {
       }))}`
       require('fs').writeFile('./config.js', _config)
       client.getTimeSeries(newToken, {resourcePath: 'activities/heart', period: '1d/1sec'}).then((res) => {
-        const _config = `module.exports = ${JSON.stringify(Object.assign(config, {
-          ACCESS_TOKEN: newToken.token.access_token,
-          REFRESH_TOKEN: newToken.token.refresh_token,
-          EXPIRES_AT: newToken.token.expires_at
-        }))}`
-        require('fs').writeFile('./config.js', _config)
         const dataset = res['activities-heart-intraday'].dataset
         resolve(dataset[dataset.length - 1])
       })
