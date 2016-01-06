@@ -2,7 +2,7 @@
 
 This is SlackBot tells us Infomation via Fitbit
 
-[![https://gyazo.com/627dd1cb75b6c1ae630fdd2a1bff885b](https://i.gyazo.com/627dd1cb75b6c1ae630fdd2a1bff885b.png)](https://gyazo.com/627dd1cb75b6c1ae630fdd2a1bff885b)
+[![https://gyazo.com/33863f8f6382907e91448acc1e4b8b88](https://i.gyazo.com/33863f8f6382907e91448acc1e4b8b88.png)](https://gyazo.com/33863f8f6382907e91448acc1e4b8b88)
 
 ## Install
 
