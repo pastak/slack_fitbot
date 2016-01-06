@@ -41,6 +41,13 @@ bot.on('message', (data) => {
         console.log(text)
         bot.postMessageToChannel(channel, text, params)
       })
+    case '起きてる?':
+    case '起きてる？':
+      fitbit.getLastSleepingTime().then((s) => {
+        text = `:zzz: 最新の睡眠情報: ${s.dateTime}まで寝ていたようです`
+        console.log(text)
+        bot.postMessageToChannel(channel, text, params)
+      })
   }
 
 })

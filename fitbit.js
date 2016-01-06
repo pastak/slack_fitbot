@@ -57,4 +57,29 @@ const getHeartRate = () => {
     })
   })
 }
-module.exports = {getStep, getDistance, getHeartRate}
+
+const getSleepData = () => {
+  return new Promise((resolve) => {
+    client.refreshAccessToken(token).then((newToken) => {
+      const _config = `module.exports = ${JSON.stringify(Object.assign(config, {
+        ACCESS_TOKEN: newToken.token.access_token,
+        REFRESH_TOKEN: newToken.token.refresh_token,
+        EXPIRES_AT: newToken.token.expires_at
+      }))}`
+      require('fs').writeFile('./config.js', _config)
+      client.getSleepLog(newToken).then((res) => {
+        resolve(res)
+      }).catch((e) => console.log(e.error))
+    })
+  })
+}
+
+const getLastSleepingTime = () => {
+  return new Promise((resolve) => {
+    getSleepData().then((res) => {
+      const lastSleepInfo = (res.sleep.pop().minuteData).filter((item) => item.value === '1').pop()
+      resolve(lastSleepInfo)
+    })
+  })
+}
+module.exports = {getStep, getDistance, getHeartRate, getLastSleepingTime}
