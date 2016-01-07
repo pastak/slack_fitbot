@@ -77,8 +77,10 @@ const getSleepData = () => {
 const getLastSleepingTime = () => {
   return new Promise((resolve) => {
     getSleepData().then((res) => {
+      const startTime = res.sleep.startTime
+      if (!startTime) return resolve(null)
       const lastSleepInfo = (res.sleep.pop().minuteData).filter((item) => item.value === '1').pop()
-      resolve(lastSleepInfo)
+      resolve({lastSleepInfo, startTime})
     })
   })
 }

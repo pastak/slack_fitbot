@@ -47,7 +47,17 @@ bot.on('message', (data) => {
     case '寝てる？':
     case '寝てる?':
       fitbit.getLastSleepingTime().then((s) => {
-        text = `:zzz: 最新の睡眠情報: ${s.dateTime}まで寝ていたようです`
+        if (!s) {
+          text = '今日はまだ寝てないっぽい！！ :muscle:'
+        } else {
+          const d = new Date(s.startTime)
+          const startTime = `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
+          if (s.lastSleepInfo) {
+            text = `:zzz: 最新の睡眠情報: ${startTime}から${s.lastSleepInfo.dateTime}まで寝ていたようです`
+          } else {
+            text = `:zzz: 最新の睡眠情報: ${startTime}から寝ているようです`
+          }
+        }
         console.log(text)
         bot.postMessageToChannel(channel, text, params)
       })
