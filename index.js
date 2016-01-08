@@ -50,12 +50,10 @@ bot.on('message', (data) => {
         if (!s) {
           text = '今日はまだ寝てないっぽい！！ :muscle:'
         } else {
-          const d = new Date(s.startTime)
-          const startTime = `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
           if (s.lastSleepInfo) {
-            text = `:zzz: 最新の睡眠情報: ${startTime}から${s.lastSleepInfo.dateTime}まで寝ていたようです`
+            text = `:zzz: 最新の睡眠情報: ${s.startTime}から${s.lastSleepInfo.dateTime}まで寝ていたようです`
           } else {
-            text = `:zzz: 最新の睡眠情報: ${startTime}から寝ているようです`
+            text = `:zzz: 最新の睡眠情報: ${s.startTime}から寝ているようです`
           }
         }
         console.log(text)

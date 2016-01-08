@@ -1,4 +1,5 @@
 const FitbitClient = require('fitbit-client-oauth2')
+const moment = require('moment-timezone')
 const config = require('./config')
 const clientId = config.CLIENT_ID
 const clientSecret = config.CONSUMER_SECRET
@@ -79,7 +80,7 @@ const getLastSleepingTime = () => {
     getSleepData().then((res) => {
       const sleepData = res.sleep.pop()
       if (!sleepData) return resolve(null)
-      const startTime = sleepData.startTime
+      const startTime = moment(sleepData.startTime).tz('Asia/Tokyo').format('hh:mm:ss')
       if (!startTime) return resolve(null)
       const lastSleepInfo = sleepData.minuteData.filter((item) => item.value === '1').pop()
       resolve({lastSleepInfo, startTime})

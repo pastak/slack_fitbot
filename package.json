@@ -19,6 +19,7 @@
   "homepage": "https://github.com/pastak/slack_fitbot#readme",
   "dependencies": {
     "fitbit-client-oauth2": "github:pastak/fitbit-client-oauth2",
+    "moment-timezone": "^0.5.0",
     "slackbots": "^0.5.0"
   },
   "devDependencies": {
